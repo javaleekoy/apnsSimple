@@ -1,5 +1,7 @@
 package com.peramdy.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import javapns.communication.exceptions.CommunicationException;
 import javapns.communication.exceptions.KeystoreException;
 import javapns.devices.Device;
@@ -23,11 +25,13 @@ public class ApnsService {
 
 
         String deviceToken = "765803bd54428cb6849d708afb325ee6cac278736d090763e952d674b24c0d0b";
-        String deviceToken2 = "4f9e701ce3cb47173e3b3da5cdeb677297157b6be616689677e8e13c9b9ae652";
+//        String deviceToken2 = "4f9e701ce3cb47173e3b3da5cdeb677297157b6be616689677e8e13c9b9ae652";
 
-//      String alert = "this is a test message!";
+        String alert = "this is a test message!";
 
-        String alert = "这是一条花花写的测试消息测试消息！";
+//        String alert = "这是一条花花写的测试消息测试消息！";
+//        alert="{\"title\" : \"Game Request\",\"body\" : \"Bob wants to play poker\"}";
+
 
         Integer badge = 1;
 
@@ -36,16 +40,23 @@ public class ApnsService {
          * tip sound
          */
         String sound = "default";
+//        sound = "bingbong.aiff";
 
         List<String> tokens = new ArrayList<String>();
         tokens.add(deviceToken);
-        tokens.add(deviceToken2);
+//        tokens.add(deviceToken2);
 
         try {
-            payload.addAlert(alert);
+//            payload.addAlert(alert);
             payload.addBadge(badge);
+            payload.addCustomAlertTitle("title test!");
+            payload.addCustomDictionary("type","1");
+            payload.addCustomAlertBody(alert);
             if (StringUtils.isNotBlank(sound))
                 payload.addSound(sound);
+
+            System.out.println(payload.toString());
+
             /**
              * certificate signed by apple
              */
